@@ -1,0 +1,72 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Foodics REST API",
+        "_postman_id": "38656187-5f80-4bb1-bd8d-9dfae8de7b9f",
+        "description": "REST Api For Order Placement",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Orders",
+            "description": "\nAPIs for managing Orders",
+            "item": [
+                {
+                    "name": "Store",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/place-order",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/place-order"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":2,\"products\":[{\"product_id\":1,\"quantity\":1},{\"product_id\":2,\"quantity\":1}]}"
+                        },
+                        "description": "This endpoint is used to store an order to the system.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n\"success\": true,\n  \"data\": {\n      \"id\": 16,\n      \"status\": 0,\n      \"products\": [\n          {\n              \"id\": 1,\n              \"name\": \"Burger\",\n              \"created_at\": \"2023-03-12T22:38:03.000000Z\",\n              \"updated_at\": \"2023-03-12T22:38:03.000000Z\",\n              \"pivot\": {\n                  \"order_id\": 16,\n                  \"product_id\": 1,\n                  \"quantity\": 1\n             }\n          },\n          {\n              \"id\": 2,\n              \"name\": \"Pizza\",\n              \"created_at\": \"2023-03-12T22:38:03.000000Z\",\n              \"updated_at\": \"2023-03-12T22:38:03.000000Z\",\n              \"pivot\": {\n                  \"order_id\": 16,\n                  \"product_id\": 2,\n                  \"quantity\": 1\n              }\n          }\n      ]\n  },\n  \"message\": \"Success\"\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"success\": false,\n  \"data\": null,\n  \"message\": \"some error msg\"\n}",
+                            "name": "Some Validation Error || insuficient Ingredeints Left || Other Exception"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: 'Foodics REST API'
+  description: 'REST Api For Order Placement'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/place-order:
+    post:
+      summary: Store
+      operationId: store
+      description: 'This endpoint is used to store an order to the system.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Some Validation Error || insuficient Ingredeints Left || Other Exception'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  data: null
+                  message: 'some error msg'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  data:
+                    type: string
+                    example: null
+                  message:
+                    type: string
+                    example: 'some error msg'
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: 'Note: The user_id is required for just sample scenerio, in real scenrio get id from auth user so no need to pass it.'
+                  example: 2
+                products:
+                  type: array
+                  description: 'needs the product_id and quanity for each array item.'
+                  example:
+                    -
+                      product_id: 1
+                      quantity: 1
+                    -
+                      product_id: 2
+                      quantity: 1
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: integer
+                        description: 'The id of the product'
+                        example: 1
+                      quantity:
+                        type: integer
+                        description: 'The quantity of the product'
+                        example: 3
+                    required:
+                      - product_id
+                      - quantity
+              required:
+                - user_id
+                - products
+      security: []
+tags:
+  -
+    name: Orders
+    description: "\nAPIs for managing Orders"
